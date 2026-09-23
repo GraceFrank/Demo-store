@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+!.env.example
+
+# demo answer key (kept local so the auto-fix agent cannot read it)
+DEMO.md

@@ -1,0 +1,75 @@
+[
+  {
+    "id": "p-1",
+    "name": "Ceramic Pour-Over Set",
+    "description": "Hand-glazed dripper and carafe for a slow, clean cup.",
+    "emoji": "☕",
+    "category": "Kitchen",
+    "price": 48,
+    "stock": 12,
+    "reviews": [
+      { "author": "Maya", "rating": 5, "comment": "Makes my mornings." },
+      { "author": "Tom", "rating": 4, "comment": "Beautiful, a little small." }
+    ]
+  },
+  {
+    "id": "p-2",
+    "name": "Linen Throw Blanket",
+    "description": "Stonewashed European linen, softens with every wash.",
+    "emoji": "🧣",
+    "category": "Home",
+    "price": 89,
+    "stock": 5,
+    "reviews": [
+      { "author": "Priya", "rating": 5, "comment": "So soft." }
+    ]
+  },
+  {
+    "id": "p-3",
+    "name": "Mechanical Keyboard",
+    "description": "Hot-swappable 75% board with tactile switches.",
+    "emoji": "⌨️",
+    "category": "Tech",
+    "price": 129.99,
+    "stock": 8,
+    "reviews": [
+      { "author": "Leo", "rating": 5, "comment": "Great feel." },
+      { "author": "Sam", "rating": 3, "comment": "Louder than expected." },
+      { "author": "Ana", "rating": 4, "comment": "Solid build." }
+    ]
+  },
+  {
+    "id": "p-4",
+    "name": "Trail Water Bottle",
+    "description": "Insulated steel bottle that keeps drinks cold for 24 hours.",
+    "emoji": "🧴",
+    "category": "Outdoors",
+    "price": 32,
+    "stock": 40
+  },
+  {
+    "id": "p-5",
+    "name": "C++ Pocket Reference",
+    "description": "Dog-eared favorite covering modern C++ idioms.",
+    "emoji": "📘",
+    "category": "Books",
+    "price": 24.5,
+    "stock": 3,
+    "reviews": [
+      { "author": "Jin", "rating": 4, "comment": "Handy on the desk." }
+    ]
+  },
+  {
+    "id": "p-6",
+    "name": "Desk Plant (Pothos)",
+    "description": "Low-maintenance trailing plant in a matte pot.",
+    "emoji": "🪴",
+    "category": "Home",
+    "price": 22,
+    "stock": 18,
+    "reviews": [
+      { "author": "Rosa", "rating": 5, "comment": "Thriving!" },
+      { "author": "Ben", "rating": 5, "comment": "Arrived healthy." }
+    ]
+  }
+]

@@ -1,0 +1,41 @@
+[
+  {
+    "id": "ORD-1042",
+    "customer": "Maya Chen",
+    "placedAt": "2026-09-02T14:12:00Z",
+    "deliveredAt": "2026-09-06T10:00:00Z",
+    "status": "delivered",
+    "total": 137,
+    "itemCount": 2,
+    "shippingAddress": { "street": "12 Elm St", "city": "Portland", "state": "OR", "zip": "97201" }
+  },
+  {
+    "id": "ORD-1043",
+    "customer": "Leo Martins",
+    "placedAt": "2026-09-10T09:30:00Z",
+    "deliveredAt": "2026-09-15T16:45:00Z",
+    "status": "delivered",
+    "total": 129.99,
+    "itemCount": 1,
+    "shippingAddress": { "street": "88 Market Ave", "city": "Austin", "state": "TX", "zip": "73301" }
+  },
+  {
+    "id": "ORD-1044",
+    "customer": "Priya Nair",
+    "placedAt": "2026-09-18T18:05:00Z",
+    "deliveredAt": "2026-09-21T12:20:00Z",
+    "status": "shipped",
+    "total": 89,
+    "itemCount": 1,
+    "shippingAddress": { "street": "401 Lake Rd", "city": "Seattle", "state": "WA", "zip": "98101" }
+  },
+  {
+    "id": "ORD-1045",
+    "customer": "Ben Okafor",
+    "placedAt": "2026-09-22T20:40:00Z",
+    "status": "processing",
+    "total": 54,
+    "itemCount": 2,
+    "shippingAddress": { "street": "5 Harbor Way", "city": "Miami", "state": "FL", "zip": "33101" }
+  }
+]

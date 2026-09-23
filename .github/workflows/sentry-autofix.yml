@@ -1,0 +1,32 @@
+name: Sentry issue → Claude auto-fix
+
+on:
+  issues:
+    types: [opened]
+
+permissions: {}
+
+jobs:
+  trigger-routine:
+    # Only issues created from Sentry alerts, which link back to the Sentry issue.
+    if: contains(github.event.issue.body, 'sentry.io/issues/')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fire Claude Code routine
+        env:
+          ROUTINE_URL: ${{ secrets.CLAUDE_ROUTINE_URL }}
+          ROUTINE_TOKEN: ${{ secrets.CLAUDE_ROUTINE_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_URL: ${{ github.event.issue.html_url }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        run: |
+          payload=$(jq -n \
+            --arg n "$ISSUE_NUMBER" --arg t "$ISSUE_TITLE" --arg u "$ISSUE_URL" --arg b "$ISSUE_BODY" \
+            '{text: "GitHub issue #\($n): \($t)\n\($u)\n\n\($b)"}')
+          curl --fail-with-body -sS -X POST "$ROUTINE_URL" \
+            -H "Authorization: Bearer $ROUTINE_TOKEN" \
+            -H "anthropic-beta: experimental-cc-routine-2026-04-01" \
+            -H "anthropic-version: 2023-06-01" \
+            -H "Content-Type: application/json" \
+            -d "$payload"

@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Mini Store
 
-## Getting Started
+A small Next.js storefront used to demo **self-healing software**: errors in production are
+reported to Sentry, and Claude fixes them from the Sentry issue.
 
-First, run the development server:
+Stack: Next.js 16 (App Router) · TypeScript · Tailwind CSS · `@sentry/nextjs`.
+
+## Getting started
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+cp .env.example .env.local   # fill in your Sentry DSN
+npm install
+npm run dev                  # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+For a production-like run (recommended for the demo, since stack traces match what you deploy):
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build && npm start
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Project structure
 
-## Learn More
+```
+src/
+  app/
+    page.tsx               Shop (product grid + search)
+    products/[id]/         Product detail
+    cart/                  Cart, discount codes, checkout
+    orders/                Recent orders
+    debug/                 Demo scenario launcher
+    api/checkout/route.ts  Checkout API
+    error.tsx              Error boundaries keep failures scoped to one page
+    global-error.tsx
+  components/              UI components (cart state lives in CartProvider)
+  lib/                     Business logic: pricing, discounts, search, formatting
+  data/                    Mock product and order data (stands in for a database)
+  types/                   Shared TypeScript types
+  instrumentation.ts       Server-side Sentry setup + request error reporting
+  instrumentation-client.ts Browser-side Sentry setup
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Sentry setup
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Create a **Next.js** project in Sentry and copy its DSN.
+2. Set `NEXT_PUBLIC_SENTRY_DSN` locally (`.env.local`) and in your hosting provider.
+3. For readable stack traces in production, also set `SENTRY_ORG`, `SENTRY_PROJECT` and
+   `SENTRY_AUTH_TOKEN` in the build environment so source maps are uploaded.
+4. Open `/debug` and click **Send Sentry test event** to confirm the connection.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Errors are reported to Sentry and fixed automatically: see `.github/workflows/sentry-autofix.yml`.
