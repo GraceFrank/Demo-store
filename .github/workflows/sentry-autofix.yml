@@ -9,7 +9,7 @@ permissions: {}
 jobs:
   trigger-routine:
     # Only issues created from Sentry alerts, which link back to the Sentry issue.
-    if: contains(github.event.issue.body, 'sentry.io/issues/')
+    if: contains(github.event.issue.body, 'sentry.io/')
     runs-on: ubuntu-latest
     steps:
       - name: Fire Claude Code routine
