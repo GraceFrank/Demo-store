@@ -41,5 +41,3 @@ yarn-error.log*
 next-env.d.ts
 
 
-# demo answer key (kept local so the auto-fix agent cannot read it)
-DEMO.md
