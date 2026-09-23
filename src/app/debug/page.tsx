@@ -1,5 +1,6 @@
 "use client";
 
+import * as Sentry from "@sentry/nextjs";
 import Link from "next/link";
 import { useState } from "react";
 import { applyDiscount } from "@/lib/discounts";
@@ -35,7 +36,7 @@ const scenarios: Scenario[] = [
           applyDiscount("save20", 100);
           return "No error. This one looks fixed.";
         } catch (error) {
-          console.error(error);
+          Sentry.captureException(error);
           return `Error: ${(error as Error).message}`;
         }
       },
