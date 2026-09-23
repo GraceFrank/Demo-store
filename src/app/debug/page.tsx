@@ -1,6 +1,5 @@
 "use client";
 
-import * as Sentry from "@sentry/nextjs";
 import Link from "next/link";
 import { useState } from "react";
 import { applyDiscount } from "@/lib/discounts";
@@ -36,8 +35,8 @@ const scenarios: Scenario[] = [
           applyDiscount("save20", 100);
           return "No error. This one looks fixed.";
         } catch (error) {
-          Sentry.captureException(error);
-          return `Captured: ${(error as Error).message}`;
+          console.error(error);
+          return `Error: ${(error as Error).message}`;
         }
       },
     },
@@ -56,7 +55,7 @@ const scenarios: Scenario[] = [
         });
         return response.ok
           ? "200 OK. This one looks fixed."
-          : `HTTP ${response.status}. Reported by the server.`;
+          : `HTTP ${response.status}. The server hit an error.`;
       },
     },
   },
@@ -77,30 +76,14 @@ export default function DebugPage() {
     setResults((current) => ({ ...current, [index]: message }));
   }
 
-  function sendTestEvent() {
-    const eventId = Sentry.captureMessage("Sentry connection test from Mini Store");
-    setResults((current) => ({ ...current, [-1]: `Sent test event ${eventId}` }));
-  }
-
   return (
     <div>
       <h1 className="text-3xl font-semibold tracking-tight">Debug scenarios</h1>
       <p className="mt-2 text-zinc-600">
-        Each scenario triggers a real bug in the app. The error goes to Sentry and the rest of
-        the app keeps working.
+        Each scenario triggers a real bug in the app. The error is contained and the rest of the
+        app keeps working.
       </p>
 
-      <div className="mt-6 flex items-center gap-3 rounded-xl border border-zinc-200 bg-white p-4">
-        <button
-          onClick={sendTestEvent}
-          className="rounded-md bg-zinc-900 px-3 py-1.5 text-sm font-medium text-white"
-        >
-          Send Sentry test event
-        </button>
-        <span className="text-sm text-zinc-600">
-          {results[-1] ?? "Check that Sentry is connected before you demo."}
-        </span>
-      </div>
 
       <ol className="mt-6 space-y-3">
         {scenarios.map((scenario, index) => (

@@ -1,6 +1,5 @@
 "use client";
 
-import * as Sentry from "@sentry/nextjs";
 import Link from "next/link";
 import { useState } from "react";
 import { useCart } from "@/components/CartProvider";
@@ -62,7 +61,7 @@ export function CartView() {
         setDiscountMessage(result.reason);
       }
     } catch (error) {
-      Sentry.captureException(error);
+      console.error(error);
       setDiscount(null);
       setDiscountMessage("Something went wrong applying that code. Please try again.");
     }

@@ -1,6 +1,5 @@
 "use client";
 
-import * as Sentry from "@sentry/nextjs";
 import { useEffect } from "react";
 
 type ErrorFallbackProps = {
@@ -11,8 +10,7 @@ type ErrorFallbackProps = {
 
 export function ErrorFallback({ error, retry, title = "Something went wrong" }: ErrorFallbackProps) {
   useEffect(() => {
-    // Server errors (which carry a digest) are already reported by onRequestError.
-    if (!error.digest) Sentry.captureException(error);
+    console.error(error);
   }, [error]);
 
   return (
