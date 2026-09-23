@@ -11,4 +11,17 @@ Sentry.init({
   integrations: [Sentry.replayIntegration()],
 });
 
+// Give each browser an anonymous visitor ID so Sentry counts distinct users. The cookie
+// lets server-side errors (see instrumentation.ts) be tagged with the same ID.
+function getVisitorId(): string {
+  const existing = document.cookie.match(/(?:^|;\s*)visitor_id=([^;]+)/)?.[1];
+  if (existing) return existing;
+
+  const id = crypto.randomUUID();
+  document.cookie = `visitor_id=${id}; path=/; max-age=31536000; SameSite=Lax`;
+  return id;
+}
+
+Sentry.setUser({ id: getVisitorId() });
+
 export const onRouterTransitionStart = Sentry.captureRouterTransitionStart;
