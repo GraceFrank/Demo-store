@@ -11,7 +11,6 @@ const TAX_RATES: Record<string, { rate: number }> = {
   TX: { rate: 0.0625 },
   WA: { rate: 0.065 },
   FL: { rate: 0.06 },
-  OR: { rate: 0 },
 };
 
 const FREE_SHIPPING_THRESHOLD = 75;
@@ -52,9 +51,7 @@ export function calculateTotals(
 
   const discounted = subtotal - discount;
   const shipping = discounted >= FREE_SHIPPING_THRESHOLD ? 0 : FLAT_SHIPPING;
-  const taxEntry = TAX_RATES[state];
-  if (!taxEntry) throw new Error(`No tax rate configured for state: ${state}`);
-  const tax = round(discounted * taxEntry.rate);
+  const tax = round(discounted * TAX_RATES[state].rate);
 
   return {
     subtotal,
