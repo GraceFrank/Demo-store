@@ -15,6 +15,10 @@ export type DiscountResult =
 export function applyDiscount(code: string, subtotal: number): DiscountResult {
   const discount = DISCOUNT_CODES[code];
 
+  if (!discount) {
+    return { ok: false, reason: `Invalid discount code: ${code}.` };
+  }
+
   if (subtotal < discount.minSubtotal) {
     return { ok: false, reason: `Spend at least $${discount.minSubtotal} to use ${code}.` };
   }
