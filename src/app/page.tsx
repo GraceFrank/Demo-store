@@ -1,3 +1,4 @@
+import { NewsletterSignup } from "@/components/NewsletterSignup";
 import { ProductGrid } from "@/components/ProductGrid";
 import { getProducts } from "@/lib/products";
 
@@ -12,6 +13,7 @@ export default async function HomePage(props: PageProps<"/">) {
       <div className="mt-8">
         <ProductGrid products={getProducts()} initialQuery={initialQuery} />
       </div>
+      <NewsletterSignup />
     </div>
   );
 }
