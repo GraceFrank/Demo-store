@@ -11,10 +11,14 @@ export function getProduct(id: string): Product | undefined {
   return products.find((product) => product.id === id);
 }
 
+function escapeRegExp(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
 export function searchProducts(items: Product[], query: string): Product[] {
   if (!query.trim()) return items;
 
-  const pattern = new RegExp(query, "i");
+  const pattern = new RegExp(escapeRegExp(query), "i");
   return items.filter(
     (product) => pattern.test(product.name) || pattern.test(product.description),
   );
